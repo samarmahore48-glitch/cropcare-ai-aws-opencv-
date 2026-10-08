@@ -1,0 +1,20 @@
+{
+  "name": "cropcare-ai",
+  "version": "2.0.0",
+  "description": "CropCare AI - Physical AI Foliar Disease Intelligence Engine (OpenCV 5 & AWS)",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'Static build ready'"
+  },
+  "keywords": [
+    "opencv",
+    "aws",
+    "graviton",
+    "agriculture",
+    "ai",
+    "computer-vision"
+  ],
+  "author": "CropCare AI Team",
+  "license": "Apache-2.0"
+}

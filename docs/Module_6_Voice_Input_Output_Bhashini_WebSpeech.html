@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CropCare AI Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a2e22;
+  background: #ffffff;
+  line-height: 1.55;
+  font-size: 9.5pt;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0d2618;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 19pt; color: #123524; border-bottom: 2.5px solid #1E7F4F; padding-bottom: 6px; }
+h2 { font-size: 13.5pt; color: #1E7F4F; border-bottom: 1px solid #E2E8DE; padding-bottom: 4px; margin-top: 1.5em; }
+h3 { font-size: 11pt; color: #123524; }
+h4 { font-size: 9.5pt; color: #2d4c38; text-transform: uppercase; letter-spacing: 0.5px; }
+
+p, li { color: #2d4034; }
+ul, ol { padding-left: 20px; margin-top: 6px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+.header-badge {
+  display: inline-block;
+  background: #E4F3E9;
+  color: #1E7F4F;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #F9FBF8;
+  border: 1px solid #E2E8DE;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.alert-box {
+  background: #FEF7E6;
+  border-left: 4px solid #D9A441;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+.alert-box.danger {
+  background: #FDE8E7;
+  border-left-color: #DC2626;
+  color: #7F1D1D;
+}
+.alert-box.success {
+  background: #E4F3E9;
+  border-left-color: #1E7F4F;
+  color: #064E3B;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #EEF3EB;
+  color: #123524;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 8.5pt;
+}
+
+pre {
+  background: #111D15;
+  color: #E7F0E9;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 8pt;
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 10px 0;
+  border: 1px solid #23392D;
+  page-break-inside: avoid;
+}
+pre code {
+  background: transparent;
+  color: #E7F0E9;
+  padding: 0;
+  font-size: 8pt;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th {
+  background: #123524;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8DE;
+}
+tr:nth-child(even) td { background: #F6F9F5; }
+
+.step-num {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  background: #1E7F4F;
+  color: #ffffff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.footer-note {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px dashed #CAD5C8;
+  font-size: 7.5pt;
+  color: #6C7F72;
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<span class="header-badge">Production Blueprint · Module 6</span>
+<h1>6. Voice Input/Output (Bhashini / Web Speech)</h1>
+<p><strong>Target Goal:</strong> Enable farmers to speak their crop questions and hear answers spoken aloud in their native tongue without typing.</p>
+
+<div class="card">
+  <h4>Why Voice is Essential for Small Farmers</h4>
+  <p>Many smallholder farmers have limited formal literacy or have wet, muddy hands while inspecting crops in the field. Voice interaction makes CropCare AI as natural as talking to an agricultural expert standing beside them.</p>
+</div>
+
+<h2>Method A: Zero-Cost Native Web Speech API (Works on all Android Phones)</h2>
+<p>No backend, server, or API key needed. Runs directly on device:</p>
+
+<pre><code>// src/hooks/useVoiceAssistant.ts
+import { useState, useEffect } from 'react';
+
+export function useVoiceAssistant(languageCode = 'hi-IN') {
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+
+  // 1. Speech-to-Text (Farmer Speaking)
+  const startListening = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Speech recognition is not supported in this browser.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = languageCode; // e.g. 'hi-IN', 'mr-IN', 'te-IN', 'ta-IN'
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    recognition.onresult = (event: any) => {
+      const text = event.results[0][0].transcript;
+      setTranscript(text);
+    };
+
+    recognition.start();
+  };
+
+  // 2. Text-to-Speech (AI Doctor Speaking Back)
+  const speakText = (text: string) => {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel(); // Stop ongoing speech
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = languageCode;
+    utterance.rate = 0.95; // Slightly slower for clear agricultural comprehension
+    window.speechSynthesis.speak(utterance);
+  };
+
+  return { isListening, transcript, startListening, speakText };
+}</code></pre>
+
+<h2>Method B: Digital India's Bhashini AI (Government Open Speech Engine)</h2>
+<p>For rural dialects, Government of India's <strong>Bhashini AI</strong> offers the highest accuracy across Indian languages:</p>
+
+<pre><code># backend/bhashini_service.py
+import requests
+
+BHASHINI_ENDPOINT = "https://dhruva-api.bhashini.gov.in/services/inference/pipeline"
+API_KEY = "YOUR_BHASHINI_API_KEY"
+
+def translate_and_speak(text: str, source_lang: str = "en", target_lang: str = "hi"):
+    headers = {
+        "Authorization": API_KEY,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "pipelineTasks": [
+            {
+                "taskType": "translation",
+                "config": {
+                    "language": { "sourceLanguage": source_lang, "targetLanguage": target_lang }
+                }
+            },
+            {
+                "taskType": "tts",
+                "config": {
+                    "language": { "sourceLanguage": target_lang },
+                    "gender": "female"
+                }
+            }
+        ],
+        "inputData": { "input": [{ "source": text }] }
+    }
+    response = requests.post(BHASHINI_ENDPOINT, json=payload, headers=headers)
+    return response.json()</code></pre>
+
+<div class="footer-note">
+  CropCare AI · Farmer-First Production Blueprint · Verified for Agricultural AI Deployments
+</div>
+</body>
+</html>

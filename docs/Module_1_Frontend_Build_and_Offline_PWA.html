@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CropCare AI Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a2e22;
+  background: #ffffff;
+  line-height: 1.55;
+  font-size: 9.5pt;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0d2618;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 19pt; color: #123524; border-bottom: 2.5px solid #1E7F4F; padding-bottom: 6px; }
+h2 { font-size: 13.5pt; color: #1E7F4F; border-bottom: 1px solid #E2E8DE; padding-bottom: 4px; margin-top: 1.5em; }
+h3 { font-size: 11pt; color: #123524; }
+h4 { font-size: 9.5pt; color: #2d4c38; text-transform: uppercase; letter-spacing: 0.5px; }
+
+p, li { color: #2d4034; }
+ul, ol { padding-left: 20px; margin-top: 6px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+.header-badge {
+  display: inline-block;
+  background: #E4F3E9;
+  color: #1E7F4F;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #F9FBF8;
+  border: 1px solid #E2E8DE;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.alert-box {
+  background: #FEF7E6;
+  border-left: 4px solid #D9A441;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+.alert-box.danger {
+  background: #FDE8E7;
+  border-left-color: #DC2626;
+  color: #7F1D1D;
+}
+.alert-box.success {
+  background: #E4F3E9;
+  border-left-color: #1E7F4F;
+  color: #064E3B;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #EEF3EB;
+  color: #123524;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 8.5pt;
+}
+
+pre {
+  background: #111D15;
+  color: #E7F0E9;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 8pt;
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 10px 0;
+  border: 1px solid #23392D;
+  page-break-inside: avoid;
+}
+pre code {
+  background: transparent;
+  color: #E7F0E9;
+  padding: 0;
+  font-size: 8pt;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th {
+  background: #123524;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8DE;
+}
+tr:nth-child(even) td { background: #F6F9F5; }
+
+.step-num {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  background: #1E7F4F;
+  color: #ffffff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.footer-note {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px dashed #CAD5C8;
+  font-size: 7.5pt;
+  color: #6C7F72;
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<span class="header-badge">Production Blueprint · Module 1</span>
+<h1>1. Modernize Frontend Build & Offline PWA</h1>
+<p><strong>Target Goal:</strong> Transform the frontend into an installable Progressive Web App (PWA) that loads in under 200 milliseconds, functions 100% offline in rural farm plots, and requires zero app store approvals.</p>
+
+<div class="card">
+  <h4>Why This Matters For Small Farmers</h4>
+  <p>In rural areas, farmers frequently experience 2G/3G connections or complete signal blackouts in the middle of their field. A traditional website that downloads a heavy bundle every visit will fail. By using Vite + Service Workers, the entire application shell, diagnosis library, and offline crop doctor remain fully functional without internet.</p>
+</div>
+
+<h2>Step 1: Scaffolding with Vite + React + TypeScript</h2>
+<p>Open your terminal and run the standard Vite initializer. This sets up lightning-fast Hot Module Replacement (HMR) and production bundling:</p>
+
+<pre><code># 1. Create the project
+npm create vite@latest cropcare-pwa -- --template react-ts
+
+# 2. Enter directory and install core dependencies
+cd cropcare-pwa
+npm install lucide-react recharts idb-keyval
+
+# 3. Install Tailwind CSS and PWA plugin
+npm install -D tailwindcss postcss autoprefixer vite-plugin-pwa
+npx tailwindcss init -p</code></pre>
+
+<h2>Step 2: Configure <code>vite.config.ts</code> with PWA Plugin</h2>
+<p>Replace your <code>vite.config.ts</code> with the following configuration. It sets up automatic Service Worker caching and an installable Web Manifest:</p>
+
+<pre><code>import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'leaf-icon.svg'],
+      manifest: {
+        name: 'CropCare AI · Farmer Health Assistant',
+        short_name: 'CropCare AI',
+        description: 'AI Crop Disease Detection & Care for Small Farmers',
+        theme_color: '#123524',
+        background_color: '#F5F7F3',
+        display: 'standalone',
+        orientation: 'portrait',
+        start_url: '/',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
+          }
+        ]
+      },
+      workbox: {
+        // Cache all local static assets
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        runtimeCaching: [
+          {
+            // Cache Google Fonts for offline use
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 }
+            }
+          },
+          {
+            // Cache weather API with network fallback
+            urlPattern: /^https:\/\/api\.open-meteo\.com\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'weather-cache',
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 4 } // 4 hours
+            }
+          }
+        ]
+      }
+    })
+  ]
+});</code></pre>
+
+<h2>Step 3: Storing Scans Offline via IndexedDB (<code>idb-keyval</code>)</h2>
+<p>Do not use <code>localStorage</code> for leaf photos because it has a 5MB limit. Use IndexedDB so the farmer can save hundreds of offline high-resolution leaf scans directly on device:</p>
+
+<pre><code>// src/services/offlineStorage.ts
+import { get, set, entries } from 'idb-keyval';
+
+export interface OfflineScanRecord {
+  id: string;
+  timestamp: number;
+  crop: string;
+  imageBlob: Blob;
+  predictedDisease?: string;
+  severity?: number;
+  synced: boolean;
+}
+
+export async function saveOfflineScan(scan: OfflineScanRecord) {
+  await set(`scan_${scan.id}`, scan);
+  console.log('Saved scan offline in IndexedDB:', scan.id);
+}
+
+export async function getAllOfflineScans(): Promise&lt;OfflineScanRecord[]&gt; {
+  const all = await entries();
+  return all
+    .filter(([k]) => typeof k === 'string' && k.startsWith('scan_'))
+    .map(([, v]) => v as OfflineScanRecord);
+}</code></pre>
+
+<h2>Step 4: Build & Test Verification</h2>
+<div class="card">
+  <ol>
+    <li>Run <code>npm run build</code>. Notice the output creates a <code>dist/sw.js</code> Service Worker file.</li>
+    <li>Run <code>npm run preview</code> to test the production build locally.</li>
+    <li>Open Chrome DevTools $\rightarrow$ <strong>Application</strong> Tab $\rightarrow$ <strong>Service Workers</strong>. Verify status is <em>Active and running</em>.</li>
+    <li>Check the <strong>Offline</strong> checkbox in DevTools Network tab and reload the page. The app must load immediately!</li>
+  </ol>
+</div>
+
+<div class="footer-note">
+  CropCare AI · Farmer-First Production Blueprint · Verified for Agricultural AI Deployments
+</div>
+</body>
+</html>

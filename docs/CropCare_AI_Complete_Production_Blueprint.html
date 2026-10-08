@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CropCare AI Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a2e22;
+  background: #ffffff;
+  line-height: 1.55;
+  font-size: 9.5pt;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0d2618;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 19pt; color: #123524; border-bottom: 2.5px solid #1E7F4F; padding-bottom: 6px; }
+h2 { font-size: 13.5pt; color: #1E7F4F; border-bottom: 1px solid #E2E8DE; padding-bottom: 4px; margin-top: 1.5em; }
+h3 { font-size: 11pt; color: #123524; }
+h4 { font-size: 9.5pt; color: #2d4c38; text-transform: uppercase; letter-spacing: 0.5px; }
+
+p, li { color: #2d4034; }
+ul, ol { padding-left: 20px; margin-top: 6px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+.header-badge {
+  display: inline-block;
+  background: #E4F3E9;
+  color: #1E7F4F;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #F9FBF8;
+  border: 1px solid #E2E8DE;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.alert-box {
+  background: #FEF7E6;
+  border-left: 4px solid #D9A441;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+.alert-box.danger {
+  background: #FDE8E7;
+  border-left-color: #DC2626;
+  color: #7F1D1D;
+}
+.alert-box.success {
+  background: #E4F3E9;
+  border-left-color: #1E7F4F;
+  color: #064E3B;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #EEF3EB;
+  color: #123524;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 8.5pt;
+}
+
+pre {
+  background: #111D15;
+  color: #E7F0E9;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 8pt;
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 10px 0;
+  border: 1px solid #23392D;
+  page-break-inside: avoid;
+}
+pre code {
+  background: transparent;
+  color: #E7F0E9;
+  padding: 0;
+  font-size: 8pt;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th {
+  background: #123524;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8DE;
+}
+tr:nth-child(even) td { background: #F6F9F5; }
+
+.step-num {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  background: #1E7F4F;
+  color: #ffffff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.footer-note {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px dashed #CAD5C8;
+  font-size: 7.5pt;
+  color: #6C7F72;
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<div style="text-align: center; padding: 40px 0 20px 0;">
+  <span class="header-badge">Comprehensive Architectural Blueprint</span>
+  <h1 style="font-size: 24pt; border-bottom: none; margin-bottom: 8px;">CropCare AI · Production Engineering Guide</h1>
+  <p style="font-size: 11pt; color: #5B6E62; max-width: 550px; margin: 0 auto 20px auto;">
+    A step-by-step implementation manual to deploy a production-grade, rural-resilient AI crop health assistant for smallholder farmers.
+  </p>
+  <div style="font-size: 8.5pt; color: #888;">Version 2.0 · September 2026 · Smart India Hackathon / AgTech Specification</div>
+</div>
+
+<div class="card" style="margin-top: 30px;">
+  <h3 style="margin-top: 0;">Table of Contents (7 Core Modules)</h3>
+  <ol style="font-size: 9pt; line-height: 1.8;">
+    <li><strong>Module 1:</strong> Modernize Frontend Build & Offline PWA (Essential for Rural Connectivity)</li>
+    <li><strong>Module 2:</strong> Connect Real AI/ML Models (Edge + Cloud Inference)</li>
+    <li><strong>Module 3:</strong> Replace Mock Weather with a Live Meteorological API</li>
+    <li><strong>Module 4:</strong> Production Database, Storage & Mobile OTP Auth</li>
+    <li><strong>Module 5:</strong> Verified Agronomic Database (CIBRC / KVK Compliance)</li>
+    <li><strong>Module 6:</strong> Voice Input/Output (Bhashini AI / Web Speech API)</li>
+    <li><strong>Module 7:</strong> Deployment & DevOps Checklist</li>
+  </ol>
+</div>
+<div class="page-break"></div>
+
+<span class="header-badge">Production Blueprint · Module 1</span>
+<h1>1. Modernize Frontend Build & Offline PWA</h1>
+<p><strong>Target Goal:</strong> Transform the frontend into an installable Progressive Web App (PWA) that loads in under 200 milliseconds, functions 100% offline in rural farm plots, and requires zero app store approvals.</p>
+
+<div class="card">
+  <h4>Why This Matters For Small Farmers</h4>
+  <p>In rural areas, farmers frequently experience 2G/3G connections or complete signal blackouts in the middle of their field. A traditional website that downloads a heavy bundle every visit will fail. By using Vite + Service Workers, the entire application shell, diagnosis library, and offline crop doctor remain fully functional without internet.</p>
+</div>
+
+<h2>Step 1: Scaffolding with Vite + React + TypeScript</h2>
+<p>Open your terminal and run the standard Vite initializer. This sets up lightning-fast Hot Module Replacement (HMR) and production bundling:</p>
+
+<pre><code># 1. Create the project
+npm create vite@latest cropcare-pwa -- --template react-ts
+
+# 2. Enter directory and install core dependencies
+cd cropcare-pwa
+npm install lucide-react recharts idb-keyval
+
+# 3. Install Tailwind CSS and PWA plugin
+npm install -D tailwindcss postcss autoprefixer vite-plugin-pwa
+npx tailwindcss init -p</code></pre>
+
+<h2>Step 2: Configure <code>vite.config.ts</code> with PWA Plugin</h2>
+<p>Replace your <code>vite.config.ts</code> with the following configuration. It sets up automatic Service Worker caching and an installable Web Manifest:</p>
+
+<pre><code>import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'leaf-icon.svg'],
+      manifest: {
+        name: 'CropCare AI · Farmer Health Assistant',
+        short_name: 'CropCare AI',
+        description: 'AI Crop Disease Detection & Care for Small Farmers',
+        theme_color: '#123524',
+        background_color: '#F5F7F3',
+        display: 'standalone',
+        orientation: 'portrait',
+        start_url: '/',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
+          }
+        ]
+      },
+      workbox: {
+        // Cache all local static assets
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        runtimeCaching: [
+          {
+            // Cache Google Fonts for offline use
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 }
+            }
+          },
+          {
+            // Cache weather API with network fallback
+            urlPattern: /^https:\/\/api\.open-meteo\.com\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'weather-cache',
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 4 } // 4 hours
+            }
+          }
+        ]
+      }
+    })
+  ]
+});</code></pre>
+
+<h2>Step 3: Storing Scans Offline via IndexedDB (<code>idb-keyval</code>)</h2>
+<p>Do not use <code>localStorage</code> for leaf photos because it has a 5MB limit. Use IndexedDB so the farmer can save hundreds of offline high-resolution leaf scans directly on device:</p>
+
+<pre><code>// src/services/offlineStorage.ts
+import { get, set, entries } from 'idb-keyval';
+
+export interface OfflineScanRecord {
+  id: string;
+  timestamp: number;
+  crop: string;
+  imageBlob: Blob;
+  predictedDisease?: string;
+  severity?: number;
+  synced: boolean;
+}
+
+export async function saveOfflineScan(scan: OfflineScanRecord) {
+  await set(`scan_${scan.id}`, scan);
+  console.log('Saved scan offline in IndexedDB:', scan.id);
+}
+
+export async function getAllOfflineScans(): Promise&lt;OfflineScanRecord[]&gt; {
+  const all = await entries();
+  return all
+    .filter(([k]) => typeof k === 'string' && k.startsWith('scan_'))
+    .map(([, v]) => v as OfflineScanRecord);
+}</code></pre>
+
+<h2>Step 4: Build & Test Verification</h2>
+<div class="card">
+  <ol>
+    <li>Run <code>npm run build</code>. Notice the output creates a <code>dist/sw.js</code> Service Worker file.</li>
+    <li>Run <code>npm run preview</code> to test the production build locally.</li>
+    <li>Open Chrome DevTools $\rightarrow$ <strong>Application</strong> Tab $\rightarrow$ <strong>Service Workers</strong>. Verify status is <em>Active and running</em>.</li>
+    <li>Check the <strong>Offline</strong> checkbox in DevTools Network tab and reload the page. The app must load immediately!</li>
+  </ol>
+</div>
+
+<div class="page-break"></div>
+
+<span class="header-badge">Production Blueprint · Module 2</span>
+<h1>2. Connect Real AI/ML Models (Edge + Cloud)</h1>
+<p><strong>Target Goal:</strong> Replace simulated AI data with real deep learning models: an offline edge classifier using ONNX Web for zero-connectivity fields, and a cloud-based FastAPI YOLOv8 service for bounding-box disease localization.</p>
+
+<h2>Step 1: Dataset & Model Strategy</h2>
+<table>
+  <tr>
+    <th>Model Type</th>
+    <th>Architecture</th>
+    <th>Dataset Sources</th>
+    <th>Latency & Size</th>
+  </tr>
+  <tr>
+    <td><strong>Disease Classifier (Edge)</strong></td>
+    <td>MobileNetV3-Large / EfficientNet-B0</td>
+    <td>PlantVillage (54k images) + ICAR field samples</td>
+    <td>&lt;150ms on mobile CPU (~12 MB INT8)</td>
+  </tr>
+  <tr>
+    <td><strong>Lesion & Pest Detector (Cloud)</strong></td>
+    <td>YOLOv8-nano (`yolov8n.pt`)</td>
+    <td>Roboflow Agricultural Disease Dataset (annotated boxes)</td>
+    <td>~80ms on Cloud GPU / ~300ms CPU</td>
+  </tr>
+</table>
+
+<h2>Step 2: Production FastAPI Service (<code>backend/main.py</code>)</h2>
+<p>Create your Python backend using FastAPI and Ultralytics YOLO:</p>
+
+<pre><code># backend/main.py
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from PIL import Image
+import io
+import imagehash
+from ultralytics import YOLO
+
+app = FastAPI(title="CropCare AI Inference Engine", version="2.0")
+
+# Enable CORS for frontend domain
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Load pre-trained / fine-tuned YOLO model
+model = YOLO("yolov8n-crop-diseases.pt")
+
+# In-memory duplicate hash store (replace with Redis/Postgres in Step 4)
+SEEN_HASHES = set()
+
+@app.post("/api/v1/scan")
+async def scan_crop(file: UploadFile = File(...), crop: str = Form("Tomato")):
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="Uploaded file is not an image")
+
+    contents = await file.read()
+    image = Image.open(io.BytesIO(contents)).convert("RGB")
+
+    # 1. Duplicate Image Detection via Perceptual Hash
+    img_hash = str(imagehash.dhash(image))
+    is_duplicate = img_hash in SEEN_HASHES
+    SEEN_HASHES.add(img_hash)
+
+    # 2. Run YOLO Object Detection for Disease Lesions
+    results = model(image)
+    detections = []
+    total_area_pixels = image.width * image.height
+    affected_pixels = 0
+
+    for r in results:
+        for box in r.boxes:
+            x1, y1, x2, y2 = box.xyxy[0].tolist()
+            conf = float(box.conf[0])
+            cls_id = int(box.cls[0])
+            name = model.names[cls_id]
+
+            box_area = (x2 - x1) * (y2 - y1)
+            affected_pixels += box_area
+
+            detections.append({
+                "disease": name,
+                "confidence": round(conf * 100, 1),
+                "bbox": [round(x1), round(y1), round(x2), round(y2)]
+            })
+
+    affected_percentage = min(100.0, round((affected_pixels / total_area_pixels) * 100, 1))
+
+    return {
+        "status": "success",
+        "is_duplicate": is_duplicate,
+        "image_hash": img_hash,
+        "crop": crop,
+        "detections_count": len(detections),
+        "detections": detections,
+        "severity_score": min(100, int(affected_percentage * 1.4)),
+        "affected_area_percentage": affected_percentage
+    }</code></pre>
+
+<h2>Step 3: Exporting Model to ONNX for 100% Offline Browser Inference</h2>
+<p>To run the model directly inside a farmer's Chrome browser with zero internet, export and quantize your model to ONNX format:</p>
+
+<pre><code># Run in Python to create lightweight web model
+import torch
+import torchvision.models as models
+
+# Example: Export MobileNetV3
+model = models.mobilenet_v3_small(pretrained=True)
+dummy_input = torch.randn(1, 3, 224, 224)
+
+torch.onnx.export(
+    model, dummy_input, "cropcare_mobilenet.onnx",
+    input_names=['input'], output_names=['output'],
+    opset_version=13
+)
+print("Exported cropcare_mobilenet.onnx")</code></pre>
+
+<h2>Step 4: Frontend In-Browser Inference via <code>onnxruntime-web</code></h2>
+<p>Install <code>onnxruntime-web</code> in your frontend:</p>
+<pre><code>npm install onnxruntime-web</code></pre>
+
+<pre><code>// src/services/edgeInference.ts
+import * as ort from 'onnxruntime-web';
+
+export async function runLocalLeafDiagnosis(imageElement: HTMLImageElement) {
+  // Load model cached by PWA Service Worker
+  const session = await ort.InferenceSession.create('/models/cropcare_mobilenet.onnx', {
+    executionProviders: ['wasm']
+  });
+
+  // Preprocess image tensor to 224x224 normalized RGB
+  const tensor = preprocessImageToTensor(imageElement);
+  const feeds = { input: tensor };
+  const results = await session.run(feeds);
+  const output = results.output.data;
+
+  return parseProbabilities(output);
+}</code></pre>
+
+<div class="page-break"></div>
+
+<span class="header-badge">Production Blueprint · Module 3</span>
+<h1>3. Connect Live Meteorological Weather API</h1>
+<p><strong>Target Goal:</strong> Feed real-time microclimate metrics (relative humidity, rainfall, dew-point, wind) directly into the disease spread algorithm using the free Open-Meteo API.</p>
+
+<div class="card">
+  <h4>Why Weather Drives Disease Spread</h4>
+  <p>Fungal spores (such as <em>Alternaria solani</em> and <em>Phytophthora infestans</em>) cannot germinate on dry leaves. They require &ge; 80% relative humidity or standing water droplets for 12 to 24 consecutive hours. Connecting hyper-local weather turns a static diagnosis into an early warning radar.</p>
+</div>
+
+<h2>Step 1: The Open-Meteo API Endpoint</h2>
+<p>The Open-Meteo API is 100% free for commercial & non-commercial use, requires no API key, and offers 1km spatial resolution:</p>
+
+<pre><code>GET https://api.open-meteo.com/v1/forecast?latitude=22.7196&longitude=75.8577&hourly=temperature_2m,relativehumidity_2m,precipitation_probability,windspeed_10m&daily=temperature_2m_max,precipitation_probability_max&timezone=auto</code></pre>
+
+<h2>Step 2: Frontend Weather Service (<code>src/services/weatherService.ts</code>)</h2>
+<pre><code>// src/services/weatherService.ts
+export interface LiveWeatherReport {
+  temperature: number;
+  humidity: number;
+  rainProbability: number;
+  windSpeed: number;
+  fungalRiskLevel: 'Low' | 'Moderate' | 'Critical';
+  advisory: string;
+}
+
+export async function fetchFieldWeather(lat: number, lng: number): Promise&lt;LiveWeatherReport&gt; {
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,relativehumidity_2m,precipitation_probability,windspeed_10m&current_weather=true&timezone=auto`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Weather API fetch failed');
+  const data = await res.json();
+
+  const currentTemp = data.current_weather.temperature;
+  const currentWind = data.current_weather.windspeed;
+  const currentHumidity = data.hourly.relativehumidity_2m[0];
+  const currentRainProb = data.hourly.precipitation_probability[0] || 0;
+
+  // Scientific Fungal Spore Germination Risk Logic
+  let risk: 'Low' | 'Moderate' | 'Critical' = 'Low';
+  let advisory = 'Environmental conditions are stable for crop growth.';
+
+  if (currentHumidity >= 85 && currentRainProb >= 60) {
+    risk = 'Critical';
+    advisory = 'High humidity (>85%) and rain expected. Critical risk of fungal spore germination!';
+  } else if (currentHumidity >= 75 || currentRainProb >= 40) {
+    risk = 'Moderate';
+    advisory = 'Elevated leaf moisture detected. Inspect lower canopy foliage.';
+  }
+
+  return {
+    temperature: currentTemp,
+    humidity: currentHumidity,
+    rainProbability: currentRainProb,
+    windSpeed: currentWind,
+    fungalRiskLevel: risk,
+    advisory
+  };
+}</code></pre>
+
+<h2>Step 3: Calculating 7-Day Disease Spread Progression</h2>
+<p>Use this mathematical model to project how severity expands over 7 days based on current humidity:</p>
+
+<pre><code>// Calculates 7-day severity trajectory
+export function calculateSpreadTrajectory(baseSeverity: number, humidity: number, rainProb: number) {
+  // Humidity multiplier: >80% humidity accelerates growth by up to 1.8x
+  const humidityFactor = humidity > 80 ? 1 + (humidity - 80) * 0.03 : 1.0;
+  const rainFactor = 1 + (rainProb / 100) * 0.2;
+
+  const trajectory = [];
+  let current = baseSeverity;
+
+  for (let day = 1; day <= 7; day++) {
+    const dailyGrowth = current * 0.08 * humidityFactor * rainFactor;
+    current = Math.min(95, Math.round(current + dailyGrowth));
+    trajectory.push({ day: `Day ${day}`, severity: current });
+  }
+
+  return trajectory;
+}</code></pre>
+
+<div class="page-break"></div>
+
+<span class="header-badge">Production Blueprint · Module 4</span>
+<h1>4. Production Database, Storage & Mobile OTP</h1>
+<p><strong>Target Goal:</strong> Establish persistent farmer accounts, geospatial field boundaries, compressed cloud photo storage, and seamless phone OTP login.</p>
+
+<h2>Step 1: Production Database Schema (PostgreSQL + PostGIS)</h2>
+<p>Run these DDL statements in Supabase, Neon, or your PostgreSQL instance:</p>
+
+<pre><code>-- Enable PostGIS for field boundary coordinates
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+-- 1. Farmers Table
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    mobile_number VARCHAR(15) UNIQUE NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    village VARCHAR(100),
+    district VARCHAR(100),
+    state VARCHAR(100),
+    preferred_language VARCHAR(10) DEFAULT 'hi',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 2. Farms & Fields
+CREATE TABLE fields (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    field_name VARCHAR(100) NOT NULL,
+    crop VARCHAR(50) NOT NULL,
+    variety VARCHAR(100),
+    area_acres NUMERIC(5,2) NOT NULL,
+    sowing_date DATE,
+    boundary_geom GEOMETRY(POLYGON, 4326), -- GPS Field Polygon
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 3. Scans & AI Diagnoses
+CREATE TABLE crop_scans (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    field_id UUID REFERENCES fields(id) ON DELETE CASCADE,
+    image_url TEXT NOT NULL,
+    image_phash VARCHAR(64) NOT NULL,
+    severity_percentage NUMERIC(5,2) NOT NULL,
+    affected_area_percentage NUMERIC(5,2) NOT NULL,
+    detected_diseases JSONB NOT NULL,
+    weather_snapshot JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 4. Index for fast duplicate image lookups
+CREATE INDEX idx_scans_phash ON crop_scans(image_phash);</code></pre>
+
+<h2>Step 2: Passwordless Mobile OTP Login with Firebase Auth</h2>
+<p>Small farmers do not use passwords. Use Firebase Phone Auth for instant SMS OTP verification:</p>
+
+<pre><code>// src/services/phoneAuth.ts
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+
+// 1. Initialize invisible reCAPTCHA
+export function setupRecaptcha(buttonId: string) {
+  const auth = getAuth();
+  return new RecaptchaVerifier(auth, buttonId, {
+    size: 'invisible'
+  });
+}
+
+// 2. Send SMS OTP
+export async function sendOtpToMobile(phoneNumber: string, appVerifier: any) {
+  const auth = getAuth();
+  const confirmationResult = await signInWithPhoneNumber(auth, `+91${phoneNumber}`, appVerifier);
+  return confirmationResult; // Call confirmationResult.confirm(otpCode) on user input
+}</code></pre>
+
+<h2>Step 3: Client-Side WebP Compression & Cloudflare R2 Upload</h2>
+<p>Never upload raw 5MB camera photos over rural 3G networks. Compress images to lightweight WebP (&lt;200KB) in the browser before sending:</p>
+
+<pre><code>// Compresses canvas image to WebP blob
+export async function compressLeafImage(file: File): Promise&lt;Blob&gt; {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 1200;
+      const scale = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scale;
+
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob((blob) => resolve(blob!), 'image/webp', 0.82);
+    };
+  });
+}</code></pre>
+
+<div class="page-break"></div>
+
+<span class="header-badge">Production Blueprint · Module 5</span>
+<h1>5. Verified Agronomic Database (CIBRC/KVK)</h1>
+<p><strong>Target Goal:</strong> Ensure all pesticide, fungicide, and bio-agent remedies strictly adhere to government-registered guidelines (CIBRC / ICAR / State Agricultural Universities).</p>
+
+<div class="alert-box danger">
+  <strong>Warning:</strong> Never allow an LLM or unverified AI model to invent pesticide dosages. Chemical misuse can destroy crops, pollute groundwater, and violate the Insecticides Act, 1968. Every treatment recommendation must pull from a verified database.
+</div>
+
+<h2>Step 1: CIBRC-Compliant Database Table Structure</h2>
+<table>
+  <tr>
+    <th>Field</th>
+    <th>Type</th>
+    <th>Description & Example</th>
+  </tr>
+  <tr>
+    <td><code>target_crop</code></td>
+    <td>VARCHAR(50)</td>
+    <td>Crop name (e.g. Tomato)</td>
+  </tr>
+  <tr>
+    <td><code>target_disease</code></td>
+    <td>VARCHAR(100)</td>
+    <td>Pathogen or pest (e.g. Early Blight)</td>
+  </tr>
+  <tr>
+    <td><code>chemical_type</code></td>
+    <td>VARCHAR(30)</td>
+    <td>Organic, Biological, or Chemical</td>
+  </tr>
+  <tr>
+    <td><code>active_ingredient</code></td>
+    <td>VARCHAR(100)</td>
+    <td>Copper Oxychloride 50% WP</td>
+  </tr>
+  <tr>
+    <td><code>dose_per_acre</code></td>
+    <td>VARCHAR(50)</td>
+    <td>500 - 600 grams</td>
+  </tr>
+  <tr>
+    <td><code>dilution_water_liters</code></td>
+    <td>INTEGER</td>
+    <td>200 Liters / Acre</td>
+  </tr>
+  <tr>
+    <td><code>pre_harvest_interval_days</code></td>
+    <td>INTEGER</td>
+    <td>Waiting period before harvest (e.g. 3 days)</td>
+  </tr>
+  <tr>
+    <td><code>banned_status</code></td>
+    <td>BOOLEAN</td>
+    <td>Must be FALSE (checked against CIBRC banned list)</td>
+  </tr>
+</table>
+
+<h2>Step 2: Seed Dataset JSON (<code>data/cibrc_treatments.json</code>)</h2>
+<pre><code>[
+  {
+    "crop": "Tomato",
+    "disease": "Early Blight",
+    "severity_threshold": "Moderate",
+    "cultural_control": "Prune lower infected leaves; sanitize pruning tools with 1% sodium hypochlorite.",
+    "biological_control": "Trichoderma harzianum @ 5g/L foliar spray during early symptoms.",
+    "chemical_control": {
+      "product_name": "Copper Oxychloride 50% WP",
+      "dosage": "2.5 g / Liter of water (500g in 200L water per acre)",
+      "method": "Thorough foliar spray on both leaf surfaces at morning hours",
+      "repeat_interval_days": 10,
+      "pre_harvest_interval_days": 3,
+      "cibrc_registration_valid": true
+    },
+    "safety_precautions": "Wear mask and gloves. Avoid spraying when wind speed > 15 km/h.",
+    "helpline": "Kisan Call Centre: 1800-180-1551"
+  },
+  {
+    "crop": "Tomato",
+    "disease": "Fruit Borer",
+    "severity_threshold": "Larval Emergence",
+    "cultural_control": "Erect 4-6 Helilure pheromone traps per acre at crop canopy level.",
+    "biological_control": "Azadirachtin 10,000 ppm (Neem oil biopesticide) @ 2 ml / Liter of water.",
+    "chemical_control": {
+      "product_name": "Chlorantraniliprole 18.5% SC",
+      "dosage": "0.3 ml / Liter of water (60 ml per acre in 200L water)",
+      "method": "Target flower bunches and young fruiting shoots",
+      "repeat_interval_days": 14,
+      "pre_harvest_interval_days": 3,
+      "cibrc_registration_valid": true
+    },
+    "safety_precautions": "Safe for pollinators when applied post-sunset. Toxic to fish; keep away from canals.",
+    "helpline": "Kisan Call Centre: 1800-180-1551"
+  }
+]</code></pre>
+
+<div class="page-break"></div>
+
+<span class="header-badge">Production Blueprint · Module 6</span>
+<h1>6. Voice Input/Output (Bhashini / Web Speech)</h1>
+<p><strong>Target Goal:</strong> Enable farmers to speak their crop questions and hear answers spoken aloud in their native tongue without typing.</p>
+
+<div class="card">
+  <h4>Why Voice is Essential for Small Farmers</h4>
+  <p>Many smallholder farmers have limited formal literacy or have wet, muddy hands while inspecting crops in the field. Voice interaction makes CropCare AI as natural as talking to an agricultural expert standing beside them.</p>
+</div>
+
+<h2>Method A: Zero-Cost Native Web Speech API (Works on all Android Phones)</h2>
+<p>No backend, server, or API key needed. Runs directly on device:</p>
+
+<pre><code>// src/hooks/useVoiceAssistant.ts
+import { useState, useEffect } from 'react';
+
+export function useVoiceAssistant(languageCode = 'hi-IN') {
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+
+  // 1. Speech-to-Text (Farmer Speaking)
+  const startListening = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Speech recognition is not supported in this browser.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = languageCode; // e.g. 'hi-IN', 'mr-IN', 'te-IN', 'ta-IN'
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    recognition.onresult = (event: any) => {
+      const text = event.results[0][0].transcript;
+      setTranscript(text);
+    };
+
+    recognition.start();
+  };
+
+  // 2. Text-to-Speech (AI Doctor Speaking Back)
+  const speakText = (text: string) => {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel(); // Stop ongoing speech
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = languageCode;
+    utterance.rate = 0.95; // Slightly slower for clear agricultural comprehension
+    window.speechSynthesis.speak(utterance);
+  };
+
+  return { isListening, transcript, startListening, speakText };
+}</code></pre>
+
+<h2>Method B: Digital India's Bhashini AI (Government Open Speech Engine)</h2>
+<p>For rural dialects, Government of India's <strong>Bhashini AI</strong> offers the highest accuracy across Indian languages:</p>
+
+<pre><code># backend/bhashini_service.py
+import requests
+
+BHASHINI_ENDPOINT = "https://dhruva-api.bhashini.gov.in/services/inference/pipeline"
+API_KEY = "YOUR_BHASHINI_API_KEY"
+
+def translate_and_speak(text: str, source_lang: str = "en", target_lang: str = "hi"):
+    headers = {
+        "Authorization": API_KEY,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "pipelineTasks": [
+            {
+                "taskType": "translation",
+                "config": {
+                    "language": { "sourceLanguage": source_lang, "targetLanguage": target_lang }
+                }
+            },
+            {
+                "taskType": "tts",
+                "config": {
+                    "language": { "sourceLanguage": target_lang },
+                    "gender": "female"
+                }
+            }
+        ],
+        "inputData": { "input": [{ "source": text }] }
+    }
+    response = requests.post(BHASHINI_ENDPOINT, json=payload, headers=headers)
+    return response.json()</code></pre>
+
+<div class="page-break"></div>
+
+<span class="header-badge">Production Blueprint · Module 7</span>
+<h1>7. Deployment & DevOps Checklist</h1>
+<p><strong>Target Goal:</strong> Deploy the frontend PWA, FastAPI AI backend, and managed database to production with SSL, CDN caching, and automated scaling.</p>
+
+<h2>Step 1: Frontend Deployment to Vercel or Cloudflare Pages (Free Tier)</h2>
+<div class="card">
+  <ol>
+    <li>Push your code to GitHub: <code>git init && git add . && git commit -m "Initial commit" && git push</code></li>
+    <li>Log into <a href="https://vercel.com" target="_blank">Vercel.com</a> or Cloudflare Pages.</li>
+    <li>Click <strong>New Project</strong> and import your GitHub repository.</li>
+    <li>Build settings:
+      <ul>
+        <li><strong>Framework Preset:</strong> Vite</li>
+        <li><strong>Build Command:</strong> <code>npm run build</code></li>
+        <li><strong>Output Directory:</strong> <code>dist</code></li>
+      </ul>
+    </li>
+    <li>Click <strong>Deploy</strong>. Your PWA is live with automated global SSL within 60 seconds!</li>
+  </ol>
+</div>
+
+<h2>Step 2: Backend Containerization with Docker</h2>
+<p>Save this <code>Dockerfile</code> in your backend directory:</p>
+
+<pre><code># backend/Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies for OpenCV and image processing
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx libglib2.0-0 curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+# Run as non-root user for security
+USER 1000
+
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
+
+<h2>Step 3: Deploy Backend on Render.com or Railway</h2>
+<div class="card">
+  <ol>
+    <li>Log into <a href="https://render.com" target="_blank">Render.com</a> $\rightarrow$ <strong>New Web Service</strong>.</li>
+    <li>Connect your backend repository and select <strong>Docker runtime</strong>.</li>
+    <li>Configure environment variables:
+      <ul>
+        <li><code>DATABASE_URL=postgresql://user:password@host/cropcare</code></li>
+        <li><code>ALLOWED_ORIGINS=https://your-frontend-domain.com</code></li>
+        <li><code>MODEL_PATH=/app/yolov8n-crop-diseases.pt</code></li>
+      </ul>
+    </li>
+    <li>Deploy. You receive an automated HTTPS endpoint: <code>https://cropcare-api.onrender.com</code>.</li>
+  </ol>
+</div>
+
+<h2>Step 4: Production Pre-Flight Checklist</h2>
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Status</th>
+    <th>Validation Check</th>
+  </tr>
+  <tr>
+    <td><strong>HTTPS & SSL</strong></td>
+    <td>Critical</td>
+    <td>PWA Service Workers & Camera access require active SSL (https://).</td>
+  </tr>
+  <tr>
+    <td><strong>CORS Security</strong></td>
+    <td>Critical</td>
+    <td>Ensure <code>allow_origins</code> in FastAPI matches your production frontend URL only.</td>
+  </tr>
+  <tr>
+    <td><strong>Rate Limiting</strong></td>
+    <td>High</td>
+    <td>Install <code>slowapi</code> on FastAPI to limit scans to 30 requests / minute per IP.</td>
+  </tr>
+  <tr>
+    <td><strong>Lighthouse PWA Audit</strong></td>
+    <td>High</td>
+    <td>Run Chrome Lighthouse. Target &ge; 90 on Performance and PWA criteria.</td>
+  </tr>
+  <tr>
+    <td><strong>Error Tracking (Sentry)</strong></td>
+    <td>Medium</td>
+    <td>Install <code>@sentry/react</code> to receive automated alerts if farmer scans crash.</td>
+  </tr>
+</table>
+
+<div class="page-break"></div>
+
+<div class="footer-note">
+  CropCare AI · Farmer-First Production Blueprint · Verified for Agricultural AI Deployments
+</div>
+</body>
+</html>

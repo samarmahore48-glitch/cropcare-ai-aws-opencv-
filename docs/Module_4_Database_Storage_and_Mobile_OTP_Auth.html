@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CropCare AI Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a2e22;
+  background: #ffffff;
+  line-height: 1.55;
+  font-size: 9.5pt;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0d2618;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 19pt; color: #123524; border-bottom: 2.5px solid #1E7F4F; padding-bottom: 6px; }
+h2 { font-size: 13.5pt; color: #1E7F4F; border-bottom: 1px solid #E2E8DE; padding-bottom: 4px; margin-top: 1.5em; }
+h3 { font-size: 11pt; color: #123524; }
+h4 { font-size: 9.5pt; color: #2d4c38; text-transform: uppercase; letter-spacing: 0.5px; }
+
+p, li { color: #2d4034; }
+ul, ol { padding-left: 20px; margin-top: 6px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+.header-badge {
+  display: inline-block;
+  background: #E4F3E9;
+  color: #1E7F4F;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #F9FBF8;
+  border: 1px solid #E2E8DE;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.alert-box {
+  background: #FEF7E6;
+  border-left: 4px solid #D9A441;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+.alert-box.danger {
+  background: #FDE8E7;
+  border-left-color: #DC2626;
+  color: #7F1D1D;
+}
+.alert-box.success {
+  background: #E4F3E9;
+  border-left-color: #1E7F4F;
+  color: #064E3B;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #EEF3EB;
+  color: #123524;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 8.5pt;
+}
+
+pre {
+  background: #111D15;
+  color: #E7F0E9;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 8pt;
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 10px 0;
+  border: 1px solid #23392D;
+  page-break-inside: avoid;
+}
+pre code {
+  background: transparent;
+  color: #E7F0E9;
+  padding: 0;
+  font-size: 8pt;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th {
+  background: #123524;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8DE;
+}
+tr:nth-child(even) td { background: #F6F9F5; }
+
+.step-num {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  background: #1E7F4F;
+  color: #ffffff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.footer-note {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px dashed #CAD5C8;
+  font-size: 7.5pt;
+  color: #6C7F72;
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<span class="header-badge">Production Blueprint · Module 4</span>
+<h1>4. Production Database, Storage & Mobile OTP</h1>
+<p><strong>Target Goal:</strong> Establish persistent farmer accounts, geospatial field boundaries, compressed cloud photo storage, and seamless phone OTP login.</p>
+
+<h2>Step 1: Production Database Schema (PostgreSQL + PostGIS)</h2>
+<p>Run these DDL statements in Supabase, Neon, or your PostgreSQL instance:</p>
+
+<pre><code>-- Enable PostGIS for field boundary coordinates
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+-- 1. Farmers Table
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    mobile_number VARCHAR(15) UNIQUE NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    village VARCHAR(100),
+    district VARCHAR(100),
+    state VARCHAR(100),
+    preferred_language VARCHAR(10) DEFAULT 'hi',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 2. Farms & Fields
+CREATE TABLE fields (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    field_name VARCHAR(100) NOT NULL,
+    crop VARCHAR(50) NOT NULL,
+    variety VARCHAR(100),
+    area_acres NUMERIC(5,2) NOT NULL,
+    sowing_date DATE,
+    boundary_geom GEOMETRY(POLYGON, 4326), -- GPS Field Polygon
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 3. Scans & AI Diagnoses
+CREATE TABLE crop_scans (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    field_id UUID REFERENCES fields(id) ON DELETE CASCADE,
+    image_url TEXT NOT NULL,
+    image_phash VARCHAR(64) NOT NULL,
+    severity_percentage NUMERIC(5,2) NOT NULL,
+    affected_area_percentage NUMERIC(5,2) NOT NULL,
+    detected_diseases JSONB NOT NULL,
+    weather_snapshot JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 4. Index for fast duplicate image lookups
+CREATE INDEX idx_scans_phash ON crop_scans(image_phash);</code></pre>
+
+<h2>Step 2: Passwordless Mobile OTP Login with Firebase Auth</h2>
+<p>Small farmers do not use passwords. Use Firebase Phone Auth for instant SMS OTP verification:</p>
+
+<pre><code>// src/services/phoneAuth.ts
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+
+// 1. Initialize invisible reCAPTCHA
+export function setupRecaptcha(buttonId: string) {
+  const auth = getAuth();
+  return new RecaptchaVerifier(auth, buttonId, {
+    size: 'invisible'
+  });
+}
+
+// 2. Send SMS OTP
+export async function sendOtpToMobile(phoneNumber: string, appVerifier: any) {
+  const auth = getAuth();
+  const confirmationResult = await signInWithPhoneNumber(auth, `+91${phoneNumber}`, appVerifier);
+  return confirmationResult; // Call confirmationResult.confirm(otpCode) on user input
+}</code></pre>
+
+<h2>Step 3: Client-Side WebP Compression & Cloudflare R2 Upload</h2>
+<p>Never upload raw 5MB camera photos over rural 3G networks. Compress images to lightweight WebP (&lt;200KB) in the browser before sending:</p>
+
+<pre><code>// Compresses canvas image to WebP blob
+export async function compressLeafImage(file: File): Promise&lt;Blob&gt; {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 1200;
+      const scale = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scale;
+
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob((blob) => resolve(blob!), 'image/webp', 0.82);
+    };
+  });
+}</code></pre>
+
+<div class="footer-note">
+  CropCare AI · Farmer-First Production Blueprint · Verified for Agricultural AI Deployments
+</div>
+</body>
+</html>

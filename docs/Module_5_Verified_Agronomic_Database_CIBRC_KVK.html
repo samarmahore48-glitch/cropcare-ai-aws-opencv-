@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CropCare AI Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a2e22;
+  background: #ffffff;
+  line-height: 1.55;
+  font-size: 9.5pt;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0d2618;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 19pt; color: #123524; border-bottom: 2.5px solid #1E7F4F; padding-bottom: 6px; }
+h2 { font-size: 13.5pt; color: #1E7F4F; border-bottom: 1px solid #E2E8DE; padding-bottom: 4px; margin-top: 1.5em; }
+h3 { font-size: 11pt; color: #123524; }
+h4 { font-size: 9.5pt; color: #2d4c38; text-transform: uppercase; letter-spacing: 0.5px; }
+
+p, li { color: #2d4034; }
+ul, ol { padding-left: 20px; margin-top: 6px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+.header-badge {
+  display: inline-block;
+  background: #E4F3E9;
+  color: #1E7F4F;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #F9FBF8;
+  border: 1px solid #E2E8DE;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.alert-box {
+  background: #FEF7E6;
+  border-left: 4px solid #D9A441;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+.alert-box.danger {
+  background: #FDE8E7;
+  border-left-color: #DC2626;
+  color: #7F1D1D;
+}
+.alert-box.success {
+  background: #E4F3E9;
+  border-left-color: #1E7F4F;
+  color: #064E3B;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #EEF3EB;
+  color: #123524;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 8.5pt;
+}
+
+pre {
+  background: #111D15;
+  color: #E7F0E9;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 8pt;
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 10px 0;
+  border: 1px solid #23392D;
+  page-break-inside: avoid;
+}
+pre code {
+  background: transparent;
+  color: #E7F0E9;
+  padding: 0;
+  font-size: 8pt;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th {
+  background: #123524;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8DE;
+}
+tr:nth-child(even) td { background: #F6F9F5; }
+
+.step-num {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  background: #1E7F4F;
+  color: #ffffff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.footer-note {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px dashed #CAD5C8;
+  font-size: 7.5pt;
+  color: #6C7F72;
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<span class="header-badge">Production Blueprint · Module 5</span>
+<h1>5. Verified Agronomic Database (CIBRC/KVK)</h1>
+<p><strong>Target Goal:</strong> Ensure all pesticide, fungicide, and bio-agent remedies strictly adhere to government-registered guidelines (CIBRC / ICAR / State Agricultural Universities).</p>
+
+<div class="alert-box danger">
+  <strong>Warning:</strong> Never allow an LLM or unverified AI model to invent pesticide dosages. Chemical misuse can destroy crops, pollute groundwater, and violate the Insecticides Act, 1968. Every treatment recommendation must pull from a verified database.
+</div>
+
+<h2>Step 1: CIBRC-Compliant Database Table Structure</h2>
+<table>
+  <tr>
+    <th>Field</th>
+    <th>Type</th>
+    <th>Description & Example</th>
+  </tr>
+  <tr>
+    <td><code>target_crop</code></td>
+    <td>VARCHAR(50)</td>
+    <td>Crop name (e.g. Tomato)</td>
+  </tr>
+  <tr>
+    <td><code>target_disease</code></td>
+    <td>VARCHAR(100)</td>
+    <td>Pathogen or pest (e.g. Early Blight)</td>
+  </tr>
+  <tr>
+    <td><code>chemical_type</code></td>
+    <td>VARCHAR(30)</td>
+    <td>Organic, Biological, or Chemical</td>
+  </tr>
+  <tr>
+    <td><code>active_ingredient</code></td>
+    <td>VARCHAR(100)</td>
+    <td>Copper Oxychloride 50% WP</td>
+  </tr>
+  <tr>
+    <td><code>dose_per_acre</code></td>
+    <td>VARCHAR(50)</td>
+    <td>500 - 600 grams</td>
+  </tr>
+  <tr>
+    <td><code>dilution_water_liters</code></td>
+    <td>INTEGER</td>
+    <td>200 Liters / Acre</td>
+  </tr>
+  <tr>
+    <td><code>pre_harvest_interval_days</code></td>
+    <td>INTEGER</td>
+    <td>Waiting period before harvest (e.g. 3 days)</td>
+  </tr>
+  <tr>
+    <td><code>banned_status</code></td>
+    <td>BOOLEAN</td>
+    <td>Must be FALSE (checked against CIBRC banned list)</td>
+  </tr>
+</table>
+
+<h2>Step 2: Seed Dataset JSON (<code>data/cibrc_treatments.json</code>)</h2>
+<pre><code>[
+  {
+    "crop": "Tomato",
+    "disease": "Early Blight",
+    "severity_threshold": "Moderate",
+    "cultural_control": "Prune lower infected leaves; sanitize pruning tools with 1% sodium hypochlorite.",
+    "biological_control": "Trichoderma harzianum @ 5g/L foliar spray during early symptoms.",
+    "chemical_control": {
+      "product_name": "Copper Oxychloride 50% WP",
+      "dosage": "2.5 g / Liter of water (500g in 200L water per acre)",
+      "method": "Thorough foliar spray on both leaf surfaces at morning hours",
+      "repeat_interval_days": 10,
+      "pre_harvest_interval_days": 3,
+      "cibrc_registration_valid": true
+    },
+    "safety_precautions": "Wear mask and gloves. Avoid spraying when wind speed > 15 km/h.",
+    "helpline": "Kisan Call Centre: 1800-180-1551"
+  },
+  {
+    "crop": "Tomato",
+    "disease": "Fruit Borer",
+    "severity_threshold": "Larval Emergence",
+    "cultural_control": "Erect 4-6 Helilure pheromone traps per acre at crop canopy level.",
+    "biological_control": "Azadirachtin 10,000 ppm (Neem oil biopesticide) @ 2 ml / Liter of water.",
+    "chemical_control": {
+      "product_name": "Chlorantraniliprole 18.5% SC",
+      "dosage": "0.3 ml / Liter of water (60 ml per acre in 200L water)",
+      "method": "Target flower bunches and young fruiting shoots",
+      "repeat_interval_days": 14,
+      "pre_harvest_interval_days": 3,
+      "cibrc_registration_valid": true
+    },
+    "safety_precautions": "Safe for pollinators when applied post-sunset. Toxic to fish; keep away from canals.",
+    "helpline": "Kisan Call Centre: 1800-180-1551"
+  }
+]</code></pre>
+
+<div class="footer-note">
+  CropCare AI · Farmer-First Production Blueprint · Verified for Agricultural AI Deployments
+</div>
+</body>
+</html>

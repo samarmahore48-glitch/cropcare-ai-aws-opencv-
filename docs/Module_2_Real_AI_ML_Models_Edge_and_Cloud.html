@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CropCare AI Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a2e22;
+  background: #ffffff;
+  line-height: 1.55;
+  font-size: 9.5pt;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0d2618;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 19pt; color: #123524; border-bottom: 2.5px solid #1E7F4F; padding-bottom: 6px; }
+h2 { font-size: 13.5pt; color: #1E7F4F; border-bottom: 1px solid #E2E8DE; padding-bottom: 4px; margin-top: 1.5em; }
+h3 { font-size: 11pt; color: #123524; }
+h4 { font-size: 9.5pt; color: #2d4c38; text-transform: uppercase; letter-spacing: 0.5px; }
+
+p, li { color: #2d4034; }
+ul, ol { padding-left: 20px; margin-top: 6px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+.header-badge {
+  display: inline-block;
+  background: #E4F3E9;
+  color: #1E7F4F;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #F9FBF8;
+  border: 1px solid #E2E8DE;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.alert-box {
+  background: #FEF7E6;
+  border-left: 4px solid #D9A441;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+.alert-box.danger {
+  background: #FDE8E7;
+  border-left-color: #DC2626;
+  color: #7F1D1D;
+}
+.alert-box.success {
+  background: #E4F3E9;
+  border-left-color: #1E7F4F;
+  color: #064E3B;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #EEF3EB;
+  color: #123524;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 8.5pt;
+}
+
+pre {
+  background: #111D15;
+  color: #E7F0E9;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 8pt;
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 10px 0;
+  border: 1px solid #23392D;
+  page-break-inside: avoid;
+}
+pre code {
+  background: transparent;
+  color: #E7F0E9;
+  padding: 0;
+  font-size: 8pt;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th {
+  background: #123524;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8DE;
+}
+tr:nth-child(even) td { background: #F6F9F5; }
+
+.step-num {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  background: #1E7F4F;
+  color: #ffffff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.footer-note {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px dashed #CAD5C8;
+  font-size: 7.5pt;
+  color: #6C7F72;
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<span class="header-badge">Production Blueprint · Module 2</span>
+<h1>2. Connect Real AI/ML Models (Edge + Cloud)</h1>
+<p><strong>Target Goal:</strong> Replace simulated AI data with real deep learning models: an offline edge classifier using ONNX Web for zero-connectivity fields, and a cloud-based FastAPI YOLOv8 service for bounding-box disease localization.</p>
+
+<h2>Step 1: Dataset & Model Strategy</h2>
+<table>
+  <tr>
+    <th>Model Type</th>
+    <th>Architecture</th>
+    <th>Dataset Sources</th>
+    <th>Latency & Size</th>
+  </tr>
+  <tr>
+    <td><strong>Disease Classifier (Edge)</strong></td>
+    <td>MobileNetV3-Large / EfficientNet-B0</td>
+    <td>PlantVillage (54k images) + ICAR field samples</td>
+    <td>&lt;150ms on mobile CPU (~12 MB INT8)</td>
+  </tr>
+  <tr>
+    <td><strong>Lesion & Pest Detector (Cloud)</strong></td>
+    <td>YOLOv8-nano (`yolov8n.pt`)</td>
+    <td>Roboflow Agricultural Disease Dataset (annotated boxes)</td>
+    <td>~80ms on Cloud GPU / ~300ms CPU</td>
+  </tr>
+</table>
+
+<h2>Step 2: Production FastAPI Service (<code>backend/main.py</code>)</h2>
+<p>Create your Python backend using FastAPI and Ultralytics YOLO:</p>
+
+<pre><code># backend/main.py
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from PIL import Image
+import io
+import imagehash
+from ultralytics import YOLO
+
+app = FastAPI(title="CropCare AI Inference Engine", version="2.0")
+
+# Enable CORS for frontend domain
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Load pre-trained / fine-tuned YOLO model
+model = YOLO("yolov8n-crop-diseases.pt")
+
+# In-memory duplicate hash store (replace with Redis/Postgres in Step 4)
+SEEN_HASHES = set()
+
+@app.post("/api/v1/scan")
+async def scan_crop(file: UploadFile = File(...), crop: str = Form("Tomato")):
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="Uploaded file is not an image")
+
+    contents = await file.read()
+    image = Image.open(io.BytesIO(contents)).convert("RGB")
+
+    # 1. Duplicate Image Detection via Perceptual Hash
+    img_hash = str(imagehash.dhash(image))
+    is_duplicate = img_hash in SEEN_HASHES
+    SEEN_HASHES.add(img_hash)
+
+    # 2. Run YOLO Object Detection for Disease Lesions
+    results = model(image)
+    detections = []
+    total_area_pixels = image.width * image.height
+    affected_pixels = 0
+
+    for r in results:
+        for box in r.boxes:
+            x1, y1, x2, y2 = box.xyxy[0].tolist()
+            conf = float(box.conf[0])
+            cls_id = int(box.cls[0])
+            name = model.names[cls_id]
+
+            box_area = (x2 - x1) * (y2 - y1)
+            affected_pixels += box_area
+
+            detections.append({
+                "disease": name,
+                "confidence": round(conf * 100, 1),
+                "bbox": [round(x1), round(y1), round(x2), round(y2)]
+            })
+
+    affected_percentage = min(100.0, round((affected_pixels / total_area_pixels) * 100, 1))
+
+    return {
+        "status": "success",
+        "is_duplicate": is_duplicate,
+        "image_hash": img_hash,
+        "crop": crop,
+        "detections_count": len(detections),
+        "detections": detections,
+        "severity_score": min(100, int(affected_percentage * 1.4)),
+        "affected_area_percentage": affected_percentage
+    }</code></pre>
+
+<h2>Step 3: Exporting Model to ONNX for 100% Offline Browser Inference</h2>
+<p>To run the model directly inside a farmer's Chrome browser with zero internet, export and quantize your model to ONNX format:</p>
+
+<pre><code># Run in Python to create lightweight web model
+import torch
+import torchvision.models as models
+
+# Example: Export MobileNetV3
+model = models.mobilenet_v3_small(pretrained=True)
+dummy_input = torch.randn(1, 3, 224, 224)
+
+torch.onnx.export(
+    model, dummy_input, "cropcare_mobilenet.onnx",
+    input_names=['input'], output_names=['output'],
+    opset_version=13
+)
+print("Exported cropcare_mobilenet.onnx")</code></pre>
+
+<h2>Step 4: Frontend In-Browser Inference via <code>onnxruntime-web</code></h2>
+<p>Install <code>onnxruntime-web</code> in your frontend:</p>
+<pre><code>npm install onnxruntime-web</code></pre>
+
+<pre><code>// src/services/edgeInference.ts
+import * as ort from 'onnxruntime-web';
+
+export async function runLocalLeafDiagnosis(imageElement: HTMLImageElement) {
+  // Load model cached by PWA Service Worker
+  const session = await ort.InferenceSession.create('/models/cropcare_mobilenet.onnx', {
+    executionProviders: ['wasm']
+  });
+
+  // Preprocess image tensor to 224x224 normalized RGB
+  const tensor = preprocessImageToTensor(imageElement);
+  const feeds = { input: tensor };
+  const results = await session.run(feeds);
+  const output = results.output.data;
+
+  return parseProbabilities(output);
+}</code></pre>
+
+<div class="footer-note">
+  CropCare AI · Farmer-First Production Blueprint · Verified for Agricultural AI Deployments
+</div>
+</body>
+</html>

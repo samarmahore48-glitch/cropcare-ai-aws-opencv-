@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CropCare AI Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a2e22;
+  background: #ffffff;
+  line-height: 1.55;
+  font-size: 9.5pt;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0d2618;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 19pt; color: #123524; border-bottom: 2.5px solid #1E7F4F; padding-bottom: 6px; }
+h2 { font-size: 13.5pt; color: #1E7F4F; border-bottom: 1px solid #E2E8DE; padding-bottom: 4px; margin-top: 1.5em; }
+h3 { font-size: 11pt; color: #123524; }
+h4 { font-size: 9.5pt; color: #2d4c38; text-transform: uppercase; letter-spacing: 0.5px; }
+
+p, li { color: #2d4034; }
+ul, ol { padding-left: 20px; margin-top: 6px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+.header-badge {
+  display: inline-block;
+  background: #E4F3E9;
+  color: #1E7F4F;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #F9FBF8;
+  border: 1px solid #E2E8DE;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.alert-box {
+  background: #FEF7E6;
+  border-left: 4px solid #D9A441;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+.alert-box.danger {
+  background: #FDE8E7;
+  border-left-color: #DC2626;
+  color: #7F1D1D;
+}
+.alert-box.success {
+  background: #E4F3E9;
+  border-left-color: #1E7F4F;
+  color: #064E3B;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #EEF3EB;
+  color: #123524;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 8.5pt;
+}
+
+pre {
+  background: #111D15;
+  color: #E7F0E9;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 8pt;
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 10px 0;
+  border: 1px solid #23392D;
+  page-break-inside: avoid;
+}
+pre code {
+  background: transparent;
+  color: #E7F0E9;
+  padding: 0;
+  font-size: 8pt;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th {
+  background: #123524;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8DE;
+}
+tr:nth-child(even) td { background: #F6F9F5; }
+
+.step-num {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  background: #1E7F4F;
+  color: #ffffff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.footer-note {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px dashed #CAD5C8;
+  font-size: 7.5pt;
+  color: #6C7F72;
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<span class="header-badge">Production Blueprint · Module 7</span>
+<h1>7. Deployment & DevOps Checklist</h1>
+<p><strong>Target Goal:</strong> Deploy the frontend PWA, FastAPI AI backend, and managed database to production with SSL, CDN caching, and automated scaling.</p>
+
+<h2>Step 1: Frontend Deployment to Vercel or Cloudflare Pages (Free Tier)</h2>
+<div class="card">
+  <ol>
+    <li>Push your code to GitHub: <code>git init && git add . && git commit -m "Initial commit" && git push</code></li>
+    <li>Log into <a href="https://vercel.com" target="_blank">Vercel.com</a> or Cloudflare Pages.</li>
+    <li>Click <strong>New Project</strong> and import your GitHub repository.</li>
+    <li>Build settings:
+      <ul>
+        <li><strong>Framework Preset:</strong> Vite</li>
+        <li><strong>Build Command:</strong> <code>npm run build</code></li>
+        <li><strong>Output Directory:</strong> <code>dist</code></li>
+      </ul>
+    </li>
+    <li>Click <strong>Deploy</strong>. Your PWA is live with automated global SSL within 60 seconds!</li>
+  </ol>
+</div>
+
+<h2>Step 2: Backend Containerization with Docker</h2>
+<p>Save this <code>Dockerfile</code> in your backend directory:</p>
+
+<pre><code># backend/Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies for OpenCV and image processing
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx libglib2.0-0 curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+# Run as non-root user for security
+USER 1000
+
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
+
+<h2>Step 3: Deploy Backend on Render.com or Railway</h2>
+<div class="card">
+  <ol>
+    <li>Log into <a href="https://render.com" target="_blank">Render.com</a> $\rightarrow$ <strong>New Web Service</strong>.</li>
+    <li>Connect your backend repository and select <strong>Docker runtime</strong>.</li>
+    <li>Configure environment variables:
+      <ul>
+        <li><code>DATABASE_URL=postgresql://user:password@host/cropcare</code></li>
+        <li><code>ALLOWED_ORIGINS=https://your-frontend-domain.com</code></li>
+        <li><code>MODEL_PATH=/app/yolov8n-crop-diseases.pt</code></li>
+      </ul>
+    </li>
+    <li>Deploy. You receive an automated HTTPS endpoint: <code>https://cropcare-api.onrender.com</code>.</li>
+  </ol>
+</div>
+
+<h2>Step 4: Production Pre-Flight Checklist</h2>
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Status</th>
+    <th>Validation Check</th>
+  </tr>
+  <tr>
+    <td><strong>HTTPS & SSL</strong></td>
+    <td>Critical</td>
+    <td>PWA Service Workers & Camera access require active SSL (https://).</td>
+  </tr>
+  <tr>
+    <td><strong>CORS Security</strong></td>
+    <td>Critical</td>
+    <td>Ensure <code>allow_origins</code> in FastAPI matches your production frontend URL only.</td>
+  </tr>
+  <tr>
+    <td><strong>Rate Limiting</strong></td>
+    <td>High</td>
+    <td>Install <code>slowapi</code> on FastAPI to limit scans to 30 requests / minute per IP.</td>
+  </tr>
+  <tr>
+    <td><strong>Lighthouse PWA Audit</strong></td>
+    <td>High</td>
+    <td>Run Chrome Lighthouse. Target &ge; 90 on Performance and PWA criteria.</td>
+  </tr>
+  <tr>
+    <td><strong>Error Tracking (Sentry)</strong></td>
+    <td>Medium</td>
+    <td>Install <code>@sentry/react</code> to receive automated alerts if farmer scans crash.</td>
+  </tr>
+</table>
+
+<div class="footer-note">
+  CropCare AI · Farmer-First Production Blueprint · Verified for Agricultural AI Deployments
+</div>
+</body>
+</html>
